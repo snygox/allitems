@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.futania</groupId>
+    <artifactId>allitems</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!--
+        Hinweis zur Versions-Kompatibilitaet:
+        Wir kompilieren gegen EINE bestimmte paper-api Version (aktuell 1.21.11),
+        weil man immer gegen irgendeine konkrete API-Version kompilieren muss.
+        Das Plugin selbst nutzt aber bewusst nur API, die es schon seit sehr
+        vielen Versionen gibt, und faengt fehlende Methoden zur Laufzeit ab
+        (siehe Kommentare in AllItemsPlugin.java). Dadurch laeuft die GLEICHE
+        .jar auch auf aelteren und neueren Paper-/Spigot-Servern, ohne dass du
+        neu kompilieren musst.
+    -->
+    <repositories>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- "provided" -> wird nicht mit in die .jar gepackt, der Server bringt die API selbst mit -->
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.21.11-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Name der fertigen Datei: target/allitems-1.0.jar -->
+        <finalName>allitems-1.0</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
